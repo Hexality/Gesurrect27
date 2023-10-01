@@ -45,8 +45,8 @@ const nW = () => {
     return accents;
   });
 
-  /* mW.loadFile('app.html') */
-  mW.loadURL("http://127.0.0.1:3000/");
+  mW.loadFile('index.html')
+  /* mW.loadURL("http://127.0.0.1:3000/"); */
 
   // mW.webContents.openDevTools()
 
