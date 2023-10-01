@@ -1,0 +1,26 @@
+{
+  "name": "gesurrect27",
+  "version": "0.1.0",
+  "description": "Gesurrect27 is an alternative sofware/driver for Logitech's G27 Wheel",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "",
+  "keywords": [
+    "logitech-g27",
+    "logitech",
+    "g27",
+    "wheel"
+  ],
+  "author": "Hexality",
+  "license": "LGPL-2.1",
+  "devDependencies": {
+    "electron": "^26.2.2"
+  },
+  "dependencies": {
+    "logitech-g27": "^1.2.2",
+    "mica-electron": "^1.5.0",
+    "windows-accent-colors": "^1.0.0"
+  }
+}
