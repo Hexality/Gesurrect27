@@ -102,7 +102,7 @@ body {
   &.open {
     width: 320px;
     transition: width 0.25s ease;
-  };
+  }
 }
 
 #settings {
@@ -125,19 +125,19 @@ body {
   height: 40px;
   :hover.buttonBody {
     background: var(--subtleFillColorSecondary);
-  };
+  }
   &.active .buttonBody {
     background: var(--subtleFillColorSecondary);
-  };
+  }
   &#settings .buttonBody {
     padding-block: 11px;
-  };
+  }
   #tmpIcon {
     padding-bottom: 2px;
     padding-left: 1px;
     width: 18px;
     height: 16px;
-  };
+  }
 }
 
 .buttonBody {
@@ -308,7 +308,10 @@ body {
 }
 
 .frame {
-  margin: 44px 56px;
+  display: flex;
+  flex-direction: column;
+  padding-inline: 44px 0;
+  padding-block: 56px;
   width: -webkit-fill-available;
   height: -webkit-fill-available;
 }
@@ -327,52 +330,78 @@ body {
   fill: var(--textFillColorPrimary);
 }
 
+.steerOptions {
+  .contentFrame {
+    display: flex;
+    margin-top: 24px;
+    width: -webkit-fill-available;
+    height: -webkit-fill-available;
+    align-items: center;
+    .options {
+      background: var(--layerFillColorPrimary);
+      width: 360px;
+      border-radius: 8px ;
+      height: -webkit-fill-available;
+      border: 1px solid var(--layerStroke);
+    }
+  }
+}
+
+.dynamicWheel {
+  display: grid;
+  place-items: center;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+}
+
 .wheelArt {
-  width: 400px;
+  width: 460px;
   aspect-ratio: 1;
   transform: rotate(0deg);
+  transition: transform .05s ease;
 }
 
 .credits * {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  &.about {
+    margin-bottom: 8px;
+  }
+  &.link:not(.button) {
+    width: fit-content;
+    color: var(--accentedText);
+    &:hover {
+      color: var(--accentedTextHover);
+    }
+  }
+  &.links {
+    margin-top: 12px;
+  }
+  &.buttons {
+    margin-top: 16px;
     display: flex;
-    flex-direction: column;
-    margin: 0;
-    &.about {
-        margin-bottom: 8px;
-    };
-    &.link:not(.button) {
-        width: fit-content;
-        color: var(--accentedText);
-        &:hover {
-            color: var(--accentedTextHover);
-        };
-    }
-    &.links {
-        margin-top: 12px;
-    };
-    &.buttons {
-        margin-top: 16px;
-        display: flex;
-        gap: 16px;
-        max-width: 136px;
-
-    };
-    &.button {
-        background-image: var(--buttonBorder);
-        background-size: 4px 4px, calc(100% - 8px) 1px, 4px 4px, 1px calc(100% - 8px);
-        background-position: top left,top center,top right,center right, bottom right,bottom center,bottom left,center left;
-        background-repeat: no-repeat;
-    };
-    &.buttonFrame {
-        border-radius: 3px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 6px 14px;
-        margin: 1px;
-        background: var(--controlFillColorPrimary);
-        text-align: center;
-        font-size: 16px;
-        line-height: 20px;
-    }
+    gap: 16px;
+    max-width: 136px;
+  }
+  &.button {
+    background-image: var(--buttonBorder);
+    background-size: 4px 4px, calc(100% - 8px) 1px, 4px 4px,
+      1px calc(100% - 8px);
+    background-position: top left, top center, top right, center right,
+      bottom right, bottom center, bottom left, center left;
+    background-repeat: no-repeat;
+  }
+  &.buttonFrame {
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 14px;
+    margin: 1px;
+    background: var(--controlFillColorPrimary);
+    text-align: center;
+    font-size: 16px;
+    line-height: 20px;
+  }
 }

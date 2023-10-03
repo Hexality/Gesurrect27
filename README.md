@@ -1,7 +1,7 @@
 </br>
 </br>
 <div align="center">
-    <img alt="Logo" width="180" src="./assets/logo.svg"/>
+    <img alt="Logo" width="180" src="./github/logo.svg"/>
 </div>
 </br>
 <div align="center">
@@ -12,7 +12,7 @@
 </br>
 </br>
 <div align="center">
-    <img width="512" src="./assets/gessurrect-settings.png">
+    <img width="512" src="./github/gessurrect-settings.png">
 </div>
 </br>
 </br>

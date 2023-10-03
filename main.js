@@ -1,9 +1,21 @@
-const { app, ipcMain, systemPreferences, shell } = require("electron");
+const { app, ipcMain, shell, ipcRenderer } = require("electron");
 const { MicaBrowserWindow } = require("mica-electron");
 const AccentColors = require("windows-accent-colors");
+const Store = require("electron-store");
+const wheel = require("logitech-g27");
 const path = require("node:path");
+const { error } = require("node:console");
 
-const nW = () => {
+const schema = {
+  wheelRange: {
+    type: "number",
+    default: 270,
+  },
+};
+
+const store = new Store({ schema: schema });
+
+function nW() {
   const mW = new MicaBrowserWindow({
     minWidth: 1000,
     width: 1000,
@@ -16,7 +28,7 @@ const nW = () => {
       width: 48
     }, */
     webPreferences: {
-      preload: path.join(__dirname, "src", "scripts", "preload.js"),
+      preload: path.join(__dirname, "app", "src", "scripts", "preload.js"),
     },
     show: false,
   });
@@ -24,11 +36,45 @@ const nW = () => {
   mW.setAutoTheme();
   mW.setMicaEffect();
 
+  const connectWheel = (d) => {
+    setTimeout(() => {
+      wheel.connect(d, (err) => {
+        try {
+          err;
+        } catch {
+          console.error(err);
+        } finally {
+          wheel.on("data", (data) => {
+            const turn = data[4];
+            mW.webContents.send("wheelTurn", (turn / 255) * 100);
+          });
+        }
+      });
+    }, 1000);
+  };
+
   ipcMain.handle("is-maximized", async () => mW.isMaximized());
   ipcMain.handle("minimizeWindow", () => mW.minimize());
   ipcMain.handle("maximizeWindow", () => mW.maximize());
   ipcMain.handle("restoreWindow", () => mW.unmaximize());
-  ipcMain.handle("closeWindow", () => mW.close());
+  ipcMain.handle("closeWindow", () => {
+    wheel.disconnect();
+    mW.close();
+  });
+
+  ipcMain.on("updateWheelCfg", (e, d) => {
+    store.set("wheelRange", parseInt(d));
+    wheel.disconnect();
+    /* wheel.connect({ autocenter: false, range: d }, function (err) {}); */
+    const wheelOptions = {
+      autocenter: false,
+      range: d,
+    };
+    connectWheel(wheelOptions);
+  });
+  ipcMain.handle("getWheelRange", () => {
+    return store.get("wheelRange");
+  });
 
   ipcMain.handle("open-link", (ev, lk) => {
     const link =
@@ -45,13 +91,24 @@ const nW = () => {
     return accents;
   });
 
-  mW.loadFile('index.html')
-  /* mW.loadURL("http://127.0.0.1:3000/"); */
+  /* mW.loadFile('app/index.html') */
+  mW.loadURL("http://127.0.0.1:3000/app");
 
   // mW.webContents.openDevTools()
 
+  ipcMain.handle("connectWheel", (d) => {
+    const wheelOptions = {
+      autocenter: false,
+      debug: true,
+      range: store.get("wheelRange"),
+    };
+    connectWheel(wheelOptions);
+  });
+
+  mW.addListener('close', ()=> wheel.disconnect())
+
   mW.show();
-};
+}
 
 app.whenReady().then(() => {
   nW();
