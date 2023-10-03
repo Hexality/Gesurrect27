@@ -30,4 +30,5 @@
 <a title="fluent-system-icons" href="https://github.com/microsoft/fluentui-system-icons">microsoft-fluent-system-icons</a>
 </br>
 </br>
-<p>Huge thanks to the respective devs for making such helpful components.</p>
+<p>First of all, huge thx to Josh who was the one who basically helped me back when I bought my wheel by sending his early-dev-but-working software called <a title="wheelie" href="https://github.com/joshcancode/wheelie-for-logitech-g27">wheelie</a>, which is the inspiration of this thing I'm trying to make.</p>
+<p>and huge thanks to the respective devs for making such helpful components.</p>
